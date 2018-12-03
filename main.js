@@ -306,7 +306,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*!**************************************!*\
   !*** ./src/app/_services/Cookies.ts ***!
   \**************************************/
-/*! exports provided: getCookie, deleteCookie, deleteAllCookies, setCookie */
+/*! exports provided: getCookie, deleteCookie, deleteAllCookies, setCookie, getCookieObject */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -315,6 +315,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteCookie", function() { return deleteCookie; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteAllCookies", function() { return deleteAllCookies; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCookie", function() { return setCookie; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCookieObject", function() { return getCookieObject; });
 function getCookie(name) {
     var nameLenPlus = (name.length + 1);
     return document.cookie
@@ -351,6 +352,11 @@ function setCookie(cname, cvalue, exdays) {
     var expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
+function getCookieObject() {
+    var userID = getCookie("userID");
+    var tk = getCookie("tk");
+    return { userID: userID, tk: tk, data: '' };
+}
 
 
 /***/ }),
@@ -367,7 +373,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminManagerService", function() { return AdminManagerService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./config */ "./src/app/_services/config.ts");
+/* harmony import */ var _Cookies__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Cookies */ "./src/app/_services/Cookies.ts");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./config */ "./src/app/_services/config.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -380,30 +387,34 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var AdminManagerService = /** @class */ (function () {
     function AdminManagerService(http) {
         this.http = http;
+        console.log(Object(_Cookies__WEBPACK_IMPORTED_MODULE_2__["getCookieObject"])());
     }
     AdminManagerService.prototype.getComputers = function () {
-        var url = _config__WEBPACK_IMPORTED_MODULE_2__["myWebsiteDomain"] + '/admin/listComputers';
-        return this.http.get(url, { withCredentials: true })
+        var url = _config__WEBPACK_IMPORTED_MODULE_3__["myWebsiteDomain"] + '/admin/listComputers';
+        return this.http.post(url, Object(_Cookies__WEBPACK_IMPORTED_MODULE_2__["getCookieObject"])(), { withCredentials: true })
             .toPromise()
             .then(function (res) {
             return res.json();
         }).catch(function (e) { return false; });
     };
     AdminManagerService.prototype.getOverView = function (data) {
+        var body = Object(_Cookies__WEBPACK_IMPORTED_MODULE_2__["getCookieObject"])();
+        body.data = data;
         if (data.mode == 'computer') {
-            var url = _config__WEBPACK_IMPORTED_MODULE_2__["myWebsiteDomain"] + '/admin/overviewByUser';
-            return this.http.post(url, data, { withCredentials: true })
+            var url = _config__WEBPACK_IMPORTED_MODULE_3__["myWebsiteDomain"] + '/admin/overviewByUser';
+            return this.http.post(url, body, { withCredentials: true })
                 .toPromise()
                 .then(function (res) {
                 return res.json();
             }).catch(function (e) { return false; });
         }
         if (data.mode == 'website') {
-            var url = _config__WEBPACK_IMPORTED_MODULE_2__["myWebsiteDomain"] + '/admin/overviewByWebsite';
-            return this.http.post(url, data, { withCredentials: true })
+            var url = _config__WEBPACK_IMPORTED_MODULE_3__["myWebsiteDomain"] + '/admin/overviewByWebsite';
+            return this.http.post(url, body, { withCredentials: true })
                 .toPromise()
                 .then(function (res) {
                 return res.json();
@@ -411,24 +422,26 @@ var AdminManagerService = /** @class */ (function () {
         }
     };
     AdminManagerService.prototype.getListWeb = function () {
-        var url = _config__WEBPACK_IMPORTED_MODULE_2__["myWebsiteDomain"] + '/admin/listWebsite';
-        return this.http.get(url, { withCredentials: true })
+        var url = _config__WEBPACK_IMPORTED_MODULE_3__["myWebsiteDomain"] + '/admin/listWebsite';
+        return this.http.post(url, Object(_Cookies__WEBPACK_IMPORTED_MODULE_2__["getCookieObject"])(), { withCredentials: true })
             .toPromise()
             .then(function (res) {
             return res.json();
         }).catch(function (e) { return false; });
     };
     AdminManagerService.prototype.updateListWeb = function (listweb) {
-        var url = _config__WEBPACK_IMPORTED_MODULE_2__["myWebsiteDomain"] + '/admin/listWebsite';
-        return this.http.put(url, listweb, { withCredentials: true })
+        var body = Object(_Cookies__WEBPACK_IMPORTED_MODULE_2__["getCookieObject"])();
+        body.data = listweb;
+        var url = _config__WEBPACK_IMPORTED_MODULE_3__["myWebsiteDomain"] + '/admin/listWebsite';
+        return this.http.put(url, body, { withCredentials: true })
             .toPromise()
             .then(function (res) {
             return res.json();
         }).catch(function (e) { return false; });
     };
     AdminManagerService.prototype.getComputerInfo = function (computerID, firstID) {
-        var url = _config__WEBPACK_IMPORTED_MODULE_2__["myWebsiteDomain"] + '/admin/computerInfo/' + computerID + "/" + firstID + "/20";
-        return this.http.get(url, { withCredentials: true })
+        var url = _config__WEBPACK_IMPORTED_MODULE_3__["myWebsiteDomain"] + '/admin/computerInfo/' + computerID + "/" + firstID + "/20";
+        return this.http.post(url, Object(_Cookies__WEBPACK_IMPORTED_MODULE_2__["getCookieObject"])(), { withCredentials: true })
             .toPromise()
             .then(function (res) {
             return res.json();
@@ -451,14 +464,21 @@ var AdminManagerService = /** @class */ (function () {
 /*!*************************************!*\
   !*** ./src/app/_services/config.ts ***!
   \*************************************/
-/*! exports provided: myWebsiteDomain */
+/*! exports provided: myWebsiteDomain, User */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "myWebsiteDomain", function() { return myWebsiteDomain; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "User", function() { return User; });
 var myWebsiteDomain = "https://linterview.herokuapp.com";
 // export const myWebsiteDomain = "http://localhost:3000";
+var User = /** @class */ (function () {
+    function User() {
+    }
+    return User;
+}());
+
 
 
 /***/ }),
@@ -529,7 +549,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return UserService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./config */ "./src/app/_services/config.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1056,28 +1076,6 @@ var ComputerDetailComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/config.ts":
-/*!***************************!*\
-  !*** ./src/app/config.ts ***!
-  \***************************/
-/*! exports provided: myWebsiteDomain, User */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "myWebsiteDomain", function() { return myWebsiteDomain; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "User", function() { return User; });
-var myWebsiteDomain = "https://linterview.herokuapp.com";
-var User = /** @class */ (function () {
-    function User() {
-    }
-    return User;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/home/home.component.css":
 /*!*****************************************!*\
   !*** ./src/app/home/home.component.css ***!
@@ -1504,13 +1502,14 @@ var OverviewComponent = /** @class */ (function () {
             console.log(r);
             _this.datas = [];
             _this.labels = [];
-            r.forEach(function (element) {
-                if (_this.customForm.value.mode == "website")
-                    _this.labels.push(element.name + "( " + element.url + ")");
-                else
-                    _this.labels.push(element.name);
-                _this.datas.push(element.sum);
-            });
+            if (r != false)
+                r.forEach(function (element) {
+                    if (_this.customForm.value.mode == "website")
+                        _this.labels.push(element.name + "( " + element.url + ")");
+                    else
+                        _this.labels.push(element.name);
+                    _this.datas.push(element.sum);
+                });
             _this.generateChart();
         }).catch(function (e) { return console.log(e); });
     };

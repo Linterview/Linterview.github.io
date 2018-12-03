@@ -630,13 +630,14 @@ var routes = [
     { path: 'Thong-ke', component: _overview_overview_component__WEBPACK_IMPORTED_MODULE_7__["OverviewComponent"], canActivate: [_services_rout_guard_service__WEBPACK_IMPORTED_MODULE_9__["RoutGuardService"]] },
     { path: 'Cac-website-cam', component: _banned_website_banned_website_component__WEBPACK_IMPORTED_MODULE_8__["BannedWebsiteComponent"], canActivate: [_services_rout_guard_service__WEBPACK_IMPORTED_MODULE_9__["RoutGuardService"]] },
     { path: 'Thong-tin-nhan-vien/:id', component: _computer_detail_computer_detail_component__WEBPACK_IMPORTED_MODULE_6__["ComputerDetailComponent"], canActivate: [_services_rout_guard_service__WEBPACK_IMPORTED_MODULE_9__["RoutGuardService"]] },
+    { path: '**', redirectTo: 'Dashboard', pathMatch: 'full' }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
     }
     AppRoutingModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
-            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, { onSameUrlNavigation: 'reload' })],
+            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, { useHash: true })],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
         })
     ], AppRoutingModule);

@@ -457,7 +457,8 @@ var AdminManagerService = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "myWebsiteDomain", function() { return myWebsiteDomain; });
-var myWebsiteDomain = "https://linterview.herokuapp.com";
+// export const myWebsiteDomain = "https://linterview.herokuapp.com";
+var myWebsiteDomain = "http://localhost:3000";
 
 
 /***/ }),
@@ -625,8 +626,7 @@ var routes = [
     { path: 'register', component: _register_register_component__WEBPACK_IMPORTED_MODULE_2__["RegisterComponent"] },
     { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_3__["LoginComponent"] },
     { path: 'Dashboard', component: _home_home_component__WEBPACK_IMPORTED_MODULE_4__["HomeComponent"] },
-    { path: 'listComputers', component: _list_computer_list_computer_component__WEBPACK_IMPORTED_MODULE_5__["ListComputerComponent"], canActivate: [_services_rout_guard_service__WEBPACK_IMPORTED_MODULE_9__["RoutGuardService"]] },
-    { path: 'computerDetail', component: _computer_detail_computer_detail_component__WEBPACK_IMPORTED_MODULE_6__["ComputerDetailComponent"], canActivate: [_services_rout_guard_service__WEBPACK_IMPORTED_MODULE_9__["RoutGuardService"]] },
+    { path: 'Danh-sach-nhan-vien', component: _list_computer_list_computer_component__WEBPACK_IMPORTED_MODULE_5__["ListComputerComponent"], canActivate: [_services_rout_guard_service__WEBPACK_IMPORTED_MODULE_9__["RoutGuardService"]] },
     { path: 'Thong-ke', component: _overview_overview_component__WEBPACK_IMPORTED_MODULE_7__["OverviewComponent"], canActivate: [_services_rout_guard_service__WEBPACK_IMPORTED_MODULE_9__["RoutGuardService"]] },
     { path: 'Cac-website-cam', component: _banned_website_banned_website_component__WEBPACK_IMPORTED_MODULE_8__["BannedWebsiteComponent"], canActivate: [_services_rout_guard_service__WEBPACK_IMPORTED_MODULE_9__["RoutGuardService"]] },
     { path: 'Thong-tin-nhan-vien/:id', component: _computer_detail_computer_detail_component__WEBPACK_IMPORTED_MODULE_6__["ComputerDetailComponent"], canActivate: [_services_rout_guard_service__WEBPACK_IMPORTED_MODULE_9__["RoutGuardService"]] },
@@ -1270,8 +1270,8 @@ var ListComputerComponent = /** @class */ (function () {
         this.admin.getComputers().then(function (r) {
             console.log(r);
             _this.list_computers = r;
-            _this.spinnerService.hide();
         }).catch(function (e) { return console.log(e); });
+        this.spinnerService.hide();
     }
     ListComputerComponent.prototype.ngOnInit = function () {
     };

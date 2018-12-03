@@ -994,6 +994,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _services_admin_manager_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_services/admin-manager.service */ "./src/app/_services/admin-manager.service.ts");
+/* harmony import */ var ng4_loading_spinner__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ng4-loading-spinner */ "./node_modules/ng4-loading-spinner/ng4-loading-spinner.umd.js");
+/* harmony import */ var ng4_loading_spinner__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(ng4_loading_spinner__WEBPACK_IMPORTED_MODULE_3__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1006,11 +1008,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ComputerDetailComponent = /** @class */ (function () {
-    function ComputerDetailComponent(route, ad_service) {
+    function ComputerDetailComponent(route, ad_service, spiner) {
         var _this = this;
         this.route = route;
         this.ad_service = ad_service;
+        this.spiner = spiner;
         this.violations = [];
         this.user = {};
         this.route.paramMap.subscribe(function (params) { return _this.computer_id = params.get('id'); });
@@ -1018,20 +1022,24 @@ var ComputerDetailComponent = /** @class */ (function () {
     ComputerDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         console.log(this.computer_id);
+        this.spiner.show();
         this.ad_service.getComputerInfo(this.computer_id, 0).then(function (r) {
             console.log(r);
             _this.user = r.info;
             _this.violations = r.violation;
         }); // lấy các vi phạm mới nhất
+        this.spiner.hide();
     };
     ComputerDetailComponent.prototype.loadMore = function () {
         var _this = this;
         var firstID = this.violations[this.violations.length - 1]._id;
+        this.spiner.show();
         this.ad_service.getComputerInfo(this.computer_id, firstID).then(function (r) {
             console.log(r);
             _this.user = r.info;
             _this.violations = r.violation;
         }).catch(function (e) { return console.log(e); });
+        this.spiner.hide();
     };
     ComputerDetailComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1039,7 +1047,7 @@ var ComputerDetailComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./computer-detail.component.html */ "./src/app/computer-detail/computer-detail.component.html"),
             styles: [__webpack_require__(/*! ./computer-detail.component.css */ "./src/app/computer-detail/computer-detail.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], _services_admin_manager_service__WEBPACK_IMPORTED_MODULE_2__["AdminManagerService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], _services_admin_manager_service__WEBPACK_IMPORTED_MODULE_2__["AdminManagerService"], ng4_loading_spinner__WEBPACK_IMPORTED_MODULE_3__["Ng4LoadingSpinnerService"]])
     ], ComputerDetailComponent);
     return ComputerDetailComponent;
 }());

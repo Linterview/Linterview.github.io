@@ -1365,7 +1365,6 @@ var LoginComponent = /** @class */ (function () {
         console.log(this.formLogin.value);
         this.spiner.show();
         this.userservice.login(this.formLogin.value).then(function (r) {
-            _this.spiner.hide();
             if (!r)
                 window.alert("Tên đăng nhập hoặc mật khẩu không đúng!");
             else {
@@ -1378,6 +1377,7 @@ var LoginComponent = /** @class */ (function () {
         }).catch(function (e) {
             window.alert("Tên đăng nhập hoặc mật khẩu không đúng!");
         });
+        this.spiner.hide();
     };
     LoginComponent.prototype.signInWithGoogle = function () {
         var _this = this;
@@ -1385,7 +1385,11 @@ var LoginComponent = /** @class */ (function () {
         this.authService.signIn(angularx_social_login__WEBPACK_IMPORTED_MODULE_4__["GoogleLoginProvider"].PROVIDER_ID).then(function (res) {
             // console.log(r.idToken);
             _this.userservice.loginWithGoole({ t: res.idToken }).then(function (r) {
-                _this.spiner.hide();
+                if (r.tk == undefined) {
+                    _this.spiner.hide();
+                    window.alert("Đăng nhập bằng google không thành công :( !");
+                    return;
+                }
                 console.log(r);
                 Object(_services_Cookies__WEBPACK_IMPORTED_MODULE_3__["setCookie"])("userID", r.userID, 2);
                 Object(_services_Cookies__WEBPACK_IMPORTED_MODULE_3__["setCookie"])("tk", r.tk, 2);
@@ -1396,6 +1400,7 @@ var LoginComponent = /** @class */ (function () {
                 window.alert("Máy chủ không phản hồi!");
             });
         }).catch(function (err) { return window.alert("Đăng nhập bằng google không thành công :( !"); });
+        this.spiner.hide();
     };
     LoginComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({

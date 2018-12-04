@@ -596,8 +596,8 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\SVMC\Linterview_02\LinterView\client-angular\src\styles.css */"./src/styles.css");
-module.exports = __webpack_require__(/*! D:\SVMC\Linterview_02\LinterView\client-angular\node_modules\bootstrap\dist\css\bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
+__webpack_require__(/*! d:\SVMC\Linterview_02\LinterView\client-angular\src\styles.css */"./src/styles.css");
+module.exports = __webpack_require__(/*! d:\SVMC\Linterview_02\LinterView\client-angular\node_modules\bootstrap\dist\css\bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
 
 
 /***/ })

@@ -928,6 +928,7 @@ var BannedWebsiteComponent = /** @class */ (function () {
         this.admin_service = admin_service;
         this.spiner = spiner;
         this.listWebs = [];
+        this.spiner.show();
     }
     BannedWebsiteComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1037,6 +1038,7 @@ var ComputerDetailComponent = /** @class */ (function () {
         this.spiner = spiner;
         this.violations = [];
         this.user = {};
+        this.spiner.show();
         this.route.paramMap.subscribe(function (params) { return _this.computer_id = params.get('id'); });
     }
     ComputerDetailComponent.prototype.ngOnInit = function () {
@@ -1477,6 +1479,7 @@ var OverviewComponent = /** @class */ (function () {
         this.showCustom = true;
         this.labels = [];
         this.datas = [];
+        this.spiner.show();
         this.customForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             mode: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]("computer"),
             time: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]("today"),
@@ -1870,7 +1873,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\SVMC\Linterview_02\LinterView\client-angular\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! d:\SVMC\Linterview_02\LinterView\client-angular\src\main.ts */"./src/main.ts");
 
 
 /***/ })
